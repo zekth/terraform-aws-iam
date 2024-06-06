@@ -105,3 +105,9 @@ variable "allow_self_assume_role" {
   type        = bool
   default     = false
 }
+
+variable "oidc_repository_visibility" {
+  description = "The OIDC repository_visibility claims to be added to the role policy"
+  type        = set(string)
+  default     = []
+}

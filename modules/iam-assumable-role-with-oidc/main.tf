@@ -62,6 +62,16 @@ data "aws_iam_policy_document" "assume_role_with_oidc" {
       }
 
       dynamic "condition" {
+        for_each = length(var.oidc_repository_visibility) > 0 ? local.urls : []
+
+        content {
+          test     = "StringEquals"
+          variable = "${statement.value}:repository_visibility"
+          values   = var.oidc_repository_visibility
+        }
+      }
+
+      dynamic "condition" {
         for_each = length(var.oidc_subjects_with_wildcards) > 0 ? local.urls : []
 
         content {
